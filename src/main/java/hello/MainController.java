@@ -26,7 +26,7 @@ public class MainController {
 	Participante getAllUsers(@RequestBody String nome) {
 		// This returns a JSON or XML with the users
 		String s = nome.split("&")[0].split("=")[1];
-		userRepository.updateJaRetirou(Integer.parseInt(s));
+//		userRepository.updateJaRetirou(Integer.parseInt(s));
 		return userRepository.findById(Integer.parseInt(s)).get();
 	}
 }
