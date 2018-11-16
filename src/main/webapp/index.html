@@ -216,19 +216,19 @@
     <div class="col-md-1"></div>
     <div class="col-md-10">
         <div ng-show="!searched">
-            <div class="alert alert-danger" role="alert" ng-show="!skipInfo">
+            <div class="alert alert-danger" role="alert">
                 <h2>Escolha seu nome na listagem abaixo (por favor, selecione somente o SEU nome e APENAS UMA ÚNICA
                     VEZ)</h2>
             </div>
 
-            <div class="alert alert-warning" role="alert" ng-show="!skipInfo">
+            <div class="alert alert-warning" role="alert">
                 <h2>Depois de sua primeira consulta, seu nome não estará mais disponível para fazer o sorteio. Ou seja, após saber
                 quem você retirou, não será mais possível refazer o sorteio. Por isso MEMORIZE!</h2>
             </div>
 
-            <button type="button" class="btn btn-primary btn-lg" ng-show="!skipInfo" ng-click="skipInfoFun()">Primary</button>
+            <button type="button" class="btn btn-primary btn-lg" ng-click="skipInfoFun()">Sortear</button>
 
-            <div ng-show="skipInfo">
+            <div>
                 <table ng-table="tableParams" class="table table-bordered table-hover">
                     <tr ng-repeat="user in data" ng-class="{true: 'select', false: 'unselect'}[user.select]"
                         ng-click="teste(user, $index)">
