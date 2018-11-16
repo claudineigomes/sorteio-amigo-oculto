@@ -17,6 +17,8 @@ public class Participante {
 
 	private String foiretirado;
 
+	private String jaretirou;
+
 	public Integer getId() {
 		return id;
 	}
@@ -47,6 +49,14 @@ public class Participante {
 
 	public void setFoiretirado(String foiretirado) {
 		this.foiretirado = foiretirado;
+	}
+
+	public String getJaretirou() {
+		return jaretirou;
+	}
+
+	public void setJaretirou(String jaretirou) {
+		this.jaretirou = jaretirou;
 	}
 }
 
