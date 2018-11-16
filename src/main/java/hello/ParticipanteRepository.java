@@ -16,4 +16,6 @@ public interface ParticipanteRepository extends CrudRepository<Participante, Int
     @Query(value = "UPDATE participante SET jaretirou = 'sim' WHERE id = ?1", nativeQuery = true)
     void updateJaRetirou(Integer id);
 
+    @Query(value = "SELECT * FROM participante WHERE id != ?1 ORDER BY RAND() LIMIT 1", nativeQuery = true)
+    Participante findRandom(Integer id);
 }
