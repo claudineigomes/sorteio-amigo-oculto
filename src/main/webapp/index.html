@@ -8,6 +8,7 @@
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="dependencias/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" ; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">
+
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
     <script src="dependencias/jquery/dist/jquery.min.js"></script>
 
@@ -210,27 +211,29 @@
 
     <div class="jumbotron text-center">
         <h1>Sorteio Amigo Oculto Natal/2018</h1>
-        <div class="col-md-1"></div>
     </div>
 
     <div class="col-md-1"></div>
     <div class="col-md-10">
-
         <div ng-show="!searched">
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger" role="alert" ng-show="!skipInfo">
                 <h2>Escolha seu nome na listagem abaixo (por favor, selecione somente o SEU nome e APENAS UMA ÚNICA
                     VEZ)</h2>
             </div>
 
-            <div class="col-md-10">
+            <div class="alert alert-warning" role="alert" ng-show="!skipInfo">
+                <h2>Depois de sua primeira consulta, seu nome não estará mais disponível para fazer o sorteio. Ou seja, após saber
+                quem você retirou, não será mais possível refazer o sorteio. Por isso MEMORIZE!</h2>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-lg" ng-show="!skipInfo" ng-click="skipInfoFun()">Primary</button>
+
+            <div ng-show="skipInfo">
                 <table ng-table="tableParams" class="table table-bordered table-hover">
                     <tr ng-repeat="user in data" ng-class="{true: 'select', false: 'unselect'}[user.select]"
                         ng-click="teste(user, $index)">
-                        <td title="'Name'" sortable="'firstname'">
+                        <td title="'Nome'" sortable="'firstname'">
                             {{user.firstname}}
-                        </td>
-                        <td title="'Age'" sortable="'email'">
-                            {{user.email}}
                         </td>
                     </tr>
                 </table>

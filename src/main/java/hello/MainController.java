@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+
 @Controller    // This means that this class is a Controller
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
 public class MainController {
@@ -15,14 +17,16 @@ public class MainController {
 	public @ResponseBody
 	Iterable<Participante> getAllUsers() {
 		// This returns a JSON or XML with the users
-		return userRepository.findAll();
+		return userRepository.findAllNaoRetirou();
 	}
-	
+
+	@Transactional
 	@PostMapping(path="/findById")
 	public @ResponseBody
 	Participante getAllUsers(@RequestBody String nome) {
 		// This returns a JSON or XML with the users
 		String s = nome.split("&")[0].split("=")[1];
+		userRepository.updateJaRetirou(Integer.parseInt(s));
 		return userRepository.findById(Integer.parseInt(s)).get();
 	}
 }

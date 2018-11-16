@@ -44,6 +44,7 @@ angular.module('controller', ['ngProgress', 'ui.bootstrap', 'ui.bootstrap.tpls',
         $scope.images = [];
 
         $scope.searched = false;
+        $scope.skipInfo = false;
 
         $scope.searchMethod = function () {
             console.log("teste")
@@ -87,6 +88,10 @@ angular.module('controller', ['ngProgress', 'ui.bootstrap', 'ui.bootstrap.tpls',
             console.log($scope.email)
 
             //window.open('mailto:test@example.com?subject=subject&body=body');
+        }
+
+        $scope.skipInfoFun = function (item, index) {
+            $scope.skipInfo = true;
         }
 
         $scope.teste = function (item, index) {
