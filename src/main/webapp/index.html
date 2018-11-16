@@ -25,6 +25,7 @@
     <script src="dependencias/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
 
+
     <script src="index.js"></script>
     <style>
         .jumbotron {
@@ -253,12 +254,12 @@
 
         <!-- Add Google Maps -->
         <div id="googleMap" style="height:400px;width:100%;"></div>
-        <script>
+        <!--<script>
             function myMap() {
                 var myCenter = new google.maps.LatLng(-19.8989979, -44.0864319);
                 var mapProp = {
                     center: myCenter,
-                    zoom: 14,
+                    zoom: 18,
                     scrollwheel: false,
                     draggable: false,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -267,9 +268,40 @@
                 var marker = new google.maps.Marker({position: myCenter});
                 marker.setMap(map);
             }
+        </script>-->
+        <script>
+            // This example requires the Places library. Include the libraries=places
+            // parameter when you first load the API. For example:
+            // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+            function myMap() {
+                var map = new google.maps.Map(document.getElementById('googleMap'), {
+                    center: {lat: -19.8989979, lng: -44.0864319},
+                    zoom: 19
+                });
+
+                var infowindow = new google.maps.InfoWindow();
+                var service = new google.maps.places.PlacesService(map);
+
+                service.getDetails({
+                    placeId: 'EkZSdWEgVmVyZWFkb3IgUGVkcm8gZGUgU291emEgTXVuaXosIDMzMyAtIEV1cm9wYSwgQ29udGFnZW0gLSBNRywgQnJhemlsIjESLwoUChIJi2iVYNeUpgARSXoEEGZB-_MQzQIqFAoSCTWAnMPZlKYAEfB2lEpyCfHo'
+                }, function(place, status) {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: place.geometry.location
+                        });
+                        google.maps.event.addListener(marker, 'click', function() {
+                            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                                'Place ID: ' + place.place_id + '<br>' +
+                                place.formatted_address + '</div>');
+                            infowindow.open(map, this);
+                        });
+                    }
+                });
+            }
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMQGIyky0Ut1DtC06WvBfbXuqGsQI4Dp0&callback=myMap"
-                async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMQGIyky0Ut1DtC06WvBfbXuqGsQI4Dp0&libraries=places&callback=myMap" async defer></script>
 
 
     </div>
