@@ -13,11 +13,9 @@ public class Participante {
 
     private String firstname;
 
-    private String email;
+	private String senha;
 
-	private String foiretirado;
-
-	private String jaretirou;
+	private String quemtirou;
 
 	public Integer getId() {
 		return id;
@@ -35,28 +33,20 @@ public class Participante {
 		this.firstname = firstname;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
-	public String getFoiretirado() {
-		return foiretirado;
+	public String getQuemtirou() {
+		return quemtirou;
 	}
 
-	public void setFoiretirado(String foiretirado) {
-		this.foiretirado = foiretirado;
-	}
-
-	public String getJaretirou() {
-		return jaretirou;
-	}
-
-	public void setJaretirou(String jaretirou) {
-		this.jaretirou = jaretirou;
+	public void setQuemtirou(String quemtirou) {
+		this.quemtirou = quemtirou;
 	}
 }
 

@@ -15,27 +15,7 @@ angular.module('controller', ['ngProgress', 'ui.bootstrap', 'ui.bootstrap.tpls',
             $scope.progressbar.setHeight('6px');
             $scope.progressbar.start();
             $scope.currentPage = 1;
-
-            $http.post('/demo/all', {
-                search: $scope.search,
-                ajax: true
-            }, {
-                transformRequest: function (data) {
-                    return $.param(data);
-                }
-            }).then(function (response) {
-                console.log(response)
-                $scope.data = response.data;
-
-                $scope.tableParams = new NgTableParams({dataset: $scope.data});
-
-
-                console.log($scope.data)
-
-                // $scope.pageChanged();
-
-            });
-        }
+        };
 
         $scope.listMostrar = [];
         $scope.itemsPerPage = 10;
@@ -81,6 +61,31 @@ angular.module('controller', ['ngProgress', 'ui.bootstrap', 'ui.bootstrap.tpls',
             $scope.searched = true;
 
         };
+
+        $scope.consultar = function () {
+            console.log("teste")
+            console.log($scope.nome)
+
+            $http.post('/demo/consultar', {
+                nome: $scope.nome,
+                senha: $scope.senha,
+                ajax: true
+            }, {
+                transformRequest: function (data) {
+                    return $.param(data);
+                }
+            }).then(function (response){
+                $scope.searched = true;
+                console.log(response)
+                $scope.selecionado = response.data;
+                console.log($scope.selecionado)
+
+                // $scope.pageChanged();
+
+            });
+
+            //window.open('mailto:test@example.com?subject=subject&body=body');
+        }
 
         $scope.sendEmail = function () {
             console.log("teste")

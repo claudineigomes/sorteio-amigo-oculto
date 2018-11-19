@@ -212,6 +212,7 @@
 
     <div class="jumbotron text-center">
         <h1>Sorteio Amigo Oculto Natal/2018</h1>
+        <img src="papainoel.jpg" alt="Italian Trulli"  width="30%" height="30%">
     </div>
 
     <div class="col-md-1"></div>
@@ -227,21 +228,15 @@
                 quem você retirou, não será mais possível refazer o sorteio. Por isso MEMORIZE!</h2>
             </div>
 
-            <div>
-                <table ng-table="tableParams" class="table table-bordered table-hover">
-                    <tr ng-repeat="user in data" ng-class="{true: 'select', false: 'unselect'}[user.select]"
-                        ng-click="teste(user, $index)">
-                        <td title="'Nome'" sortable="'firstname'">
-                            {{user.firstname}}
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <label>Nome: <input type="text" ng-model="nome" /></label><br />
+            <label>Senha: <input type="text" ng-model="senha" /></label><br />
+
+            <button type="button" class="btn btn-primary" ng-click="consultar()">Consultar</button>
         </div>
 
         <div class="text-center" ng-show="searched">
             <div class="alert alert-success" role="alert">
-                <h1>Você retirou: {{selecionado.firstname}}</h1>
+                <h1>Você retirou: {{selecionado[0].quemtirou}}</h1>
             </div>
         </div>
 

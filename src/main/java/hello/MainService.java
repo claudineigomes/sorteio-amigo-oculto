@@ -15,17 +15,18 @@ public class MainService {
         // This returns a JSON or XML with the users
         String s = nome.split("&")[0].split("=")[1];
         Participante atual = userRepository.findById(Integer.parseInt(s)).get();
-        if( "nao".equalsIgnoreCase(atual.getJaretirou())) {
-            userRepository.updateJaRetirou(Integer.parseInt(s));
-            Participante achou = userRepository.findRandom(Integer.parseInt(s));
-            userRepository.updateFoiRetirado(achou.getId());
-            System.out.println("Terminou");
-            return achou;
-        }else{
-            Participante p = new Participante();
-            p.setFirstname("Você já retirou alguém ... tente se lembrar ...");
-            System.out.println("Terminou");
-            return p;
-        }
+//        if( "nao".equalsIgnoreCase(atual.getJaretirou())) {
+//            userRepository.updateJaRetirou(Integer.parseInt(s));
+//            Participante achou = userRepository.findRandom(Integer.parseInt(s));
+//            userRepository.updateFoiRetirado(achou.getId());
+//            System.out.println("Terminou");
+//            return achou;
+//        }else{
+//            Participante p = new Participante();
+//            p.setFirstname("Você já retirou alguém ... tente se lembrar ...");
+//            System.out.println("Terminou");
+//            return p;
+//        }
+        return null;
     }
 }

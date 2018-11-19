@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Controller    // This means that this class is a Controller
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
@@ -15,16 +16,75 @@ public class MainController {
 
 	@Autowired MainService mainService;
 
-	@PostMapping(path="/all")
-	public @ResponseBody
-	Iterable<Participante> getAllUsers() {
-		// This returns a JSON or XML with the users
-		return userRepository.findAllNaoRetirou();
-	}
-
 	@PostMapping(path="/findById")
 	public @ResponseBody
 	Participante getAllUsers(@RequestBody String nome) {
 		return mainService.execute(nome);
+	}
+
+	@PostMapping(path = "/run")
+	public void main(){
+		List<String> participantes = new ArrayList<>();
+		List<String> participantesASeremSorteados;
+
+		List<Map<String, String>> sorteio = new ArrayList<>();
+		participantes.add("Eglaíze");
+		participantes.add("Maurílio");
+		participantes.add("Gabriela");
+		participantes.add("Gustavo");
+		participantes.add("Claudinei");
+		participantes.add("Eugênia");// ( observar)
+		participantes.add("Elaine");
+		participantes.add("Alfredo");
+		participantes.add("Juninho");
+		participantes.add("Poliana");
+		participantes.add("Stael");
+		participantes.add("Antônio");
+		participantes.add("Vera");
+		participantes.add("Rui");
+		participantes.add("Mercinho");
+		participantes.add("Cely");
+		participantes.add("Neusa");
+		participantes.add("Geovane");
+		participantes.add("Giovana");
+		participantesASeremSorteados = new ArrayList<>(participantes);
+
+		int maxAttemps = 50;
+		Integer id = 0;
+		for(String p: participantes){
+			boolean loop = true;
+			String quemRetirou = null;
+			int tent = 0;
+			while(loop && tent < maxAttemps){
+				tent++;
+				int randomNum = ThreadLocalRandom.current().nextInt(0, participantesASeremSorteados.size());
+				if(!p.equalsIgnoreCase(participantesASeremSorteados.get(randomNum))){
+					loop = false;
+					quemRetirou = participantesASeremSorteados.get(randomNum);
+					participantesASeremSorteados.remove(randomNum);
+					String senha = randomPassword();
+					System.out.println("Usuario: " + p + " Senha: " + senha);
+					userRepository.insert(++id, p, quemRetirou, senha);
+				}else{
+					System.out.println(p + " -> " + participantesASeremSorteados.get(randomNum));
+				}
+			}
+			HashMap<String, String> stringStringHashMap = new HashMap<>();
+
+			stringStringHashMap.put(p, quemRetirou);
+			sorteio.add(stringStringHashMap);
+		}
+		System.out.println("Terminou");
+	}
+
+	@PostMapping(path="/consultar")
+	public @ResponseBody Iterable<Participante> consultar(@RequestBody String consulta) {
+		String nome = consulta.split("&")[0].split("=")[1];
+		String senha = consulta.split("&")[1].split("=")[1];
+		return userRepository.findByNameAndSenha(nome, senha);
+	}
+
+	public static String randomPassword(){
+		return UUID.randomUUID().toString().substring(0, 4);
 	}
 }
