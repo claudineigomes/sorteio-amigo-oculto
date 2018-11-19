@@ -234,9 +234,14 @@
             <button type="button" class="btn btn-primary" ng-click="consultar()">Consultar</button>
         </div>
 
-        <div class="text-center" ng-show="searched">
+        <div class="text-center" ng-show="searched && !hayerror">
             <div class="alert alert-success" role="alert">
                 <h1>Você retirou: {{selecionado[0].quemtirou}}</h1>
+            </div>
+        </div>
+        <div class="text-center" ng-show="searched && hayerror">
+            <div class="alert alert-danger" role="alert">
+                <h1>Verifique o nome do usuário e senha e tente novamente recarregando a página!</h1>
             </div>
         </div>
 

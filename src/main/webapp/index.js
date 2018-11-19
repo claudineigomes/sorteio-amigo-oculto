@@ -26,44 +26,7 @@ angular.module('controller', ['ngProgress', 'ui.bootstrap', 'ui.bootstrap.tpls',
         $scope.searched = false;
         $scope.skipInfo = false;
 
-        $scope.searchMethod = function () {
-            console.log("teste")
-            $scope.start();
-
-            $http.post('/demo/findById', {
-                search: $scope.search,
-                ajax: true
-            }, {
-                transformRequest: function (data) {
-                    return $.param(data);
-                }
-            }).then(function (response){
-                $scope.searched = true;
-                console.log(response)
-                $scope.selecionado = response.data;
-                console.log($scope.selecionado)
-
-                // $scope.pageChanged();
-
-            });
-
-            $http.get('https://api.gettyimages.com/v3/search/images?fields=id,title,thumb,referral_destinations&sort_order=best&phrase=' + $scope.search, {
-                headers: {'Api-Key': '6q9uj3695ckk9m4u6cfxjz7e'}
-            }).then(function (response) {
-                console.log(response)
-                console.log(response.data.images[1].display_sizes[0].uri)
-
-                $scope.images = response.data.images
-                $scope.imagem = response.data.images[1].display_sizes[0].uri
-            });
-
-            $scope.end();
-            $scope.searched = true;
-
-        };
-
         $scope.consultar = function () {
-            console.log("teste")
             console.log($scope.nome)
 
             $http.post('/demo/consultar', {
@@ -76,11 +39,13 @@ angular.module('controller', ['ngProgress', 'ui.bootstrap', 'ui.bootstrap.tpls',
                 }
             }).then(function (response){
                 $scope.searched = true;
+                $scope.hayerror = false;
                 console.log(response)
                 $scope.selecionado = response.data;
                 console.log($scope.selecionado)
-
-                // $scope.pageChanged();
+                if(response.data.length == 0){
+                    $scope.hayerror = true;
+                }
 
             });
 
