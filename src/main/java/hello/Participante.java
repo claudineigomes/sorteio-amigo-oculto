@@ -17,6 +17,8 @@ public class Participante {
 
 	private String quemtirou;
 
+	private String jaconsultou;
+
 	public Integer getId() {
 		return id;
 	}
@@ -47,6 +49,14 @@ public class Participante {
 
 	public void setQuemtirou(String quemtirou) {
 		this.quemtirou = quemtirou;
+	}
+
+	public String getJaconsultou() {
+		return jaconsultou;
+	}
+
+	public void setJaconsultou(String jaconsultou) {
+		this.jaconsultou = jaconsultou;
 	}
 }
 

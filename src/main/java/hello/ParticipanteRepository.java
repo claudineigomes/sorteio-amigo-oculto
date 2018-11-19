@@ -22,8 +22,13 @@ public interface ParticipanteRepository extends CrudRepository<Participante, Int
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "insert into participante (id, firstname, quemtirou, senha) values (?1, ?2, ?3, ?4);", nativeQuery = true)
-    void insert(Integer id, String firstname, String quemtirou, String senha);
+    @Query(value = "insert into participante (id, firstname, quemtirou, senha, jaconsultou) values (?1, ?2, ?3, ?4, ?5);", nativeQuery = true)
+    void insert(Integer id, String firstname, String quemtirou, String senha, String jaconsultou);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update participante set jaconsultou = 'sim' where firstname = ?1", nativeQuery = true)
+    void updateConsultou(String firstname);
 
     @Query(value = "SELECT * FROM participante WHERE firstname = ?1 AND senha = ?2", nativeQuery = true)
     Iterable<Participante> findByNameAndSenha(String firstname, String senha);

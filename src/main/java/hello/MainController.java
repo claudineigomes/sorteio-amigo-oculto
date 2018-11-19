@@ -64,7 +64,7 @@ public class MainController {
 					participantesASeremSorteados.remove(randomNum);
 					String senha = randomPassword();
 					System.out.println("Usuario: " + p + " Senha: " + senha);
-					userRepository.insert(++id, p, quemRetirou, senha);
+					userRepository.insert(++id, p, quemRetirou, senha, "nao");
 				}else{
 					System.out.println(p + " -> " + participantesASeremSorteados.get(randomNum));
 				}
@@ -81,7 +81,11 @@ public class MainController {
 	public @ResponseBody Iterable<Participante> consultar(@RequestBody String consulta) {
 		String nome = consulta.split("&")[0].split("=")[1];
 		String senha = consulta.split("&")[1].split("=")[1];
-		return userRepository.findByNameAndSenha(nome, senha);
+		Iterable<Participante> quemtirou = userRepository.findByNameAndSenha(nome, senha);
+		if(quemtirou.iterator().hasNext()){
+			userRepository.updateConsultou(nome);
+		}
+		return quemtirou;
 	}
 
 	public static String randomPassword(){
