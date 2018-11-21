@@ -30,6 +30,11 @@ public interface ParticipanteRepository extends CrudRepository<Participante, Int
     @Query(value = "update participante set jaconsultou = 'sim' where firstname = ?1", nativeQuery = true)
     void updateConsultou(String firstname);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "delete from participante", nativeQuery = true)
+    void deleteAll();
+
     @Query(value = "SELECT * FROM participante WHERE firstname = ?1 AND senha = ?2", nativeQuery = true)
     Iterable<Participante> findByNameAndSenha(String firstname, String senha);
 
