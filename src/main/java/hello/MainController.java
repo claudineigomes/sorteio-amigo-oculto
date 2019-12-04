@@ -18,6 +18,12 @@ public class MainController {
     @Autowired
     MainService mainService;
 
+    @DeleteMapping(path = "/deleteAll")
+    public @ResponseBody
+    void deleteAllUsers() {
+        userRepository.deleteAll();
+    }
+
     @PostMapping(path = "/findById")
     public @ResponseBody
     Participante getAllUsers(@RequestBody String nome) {
@@ -31,25 +37,13 @@ public class MainController {
         List<String> participantesASeremSorteados;
 
         List<Map<String, String>> sorteio = new ArrayList<>();
-        participantes.add("Eglaize");
-        participantes.add("Maurilio");
-        participantes.add("Gabriela");
-        participantes.add("Gustavo");
-        participantes.add("Claudinei");
-        participantes.add("Eugenia");// ( observar)
-        participantes.add("Elaine");
-        participantes.add("Alfredo");
-        participantes.add("Juninho");
-        participantes.add("Poliana");
-        participantes.add("Stael");
-        participantes.add("Antonio");
-        participantes.add("Vera");
-        participantes.add("Rui");
-        participantes.add("Mercinho");
         participantes.add("Cely");
+        participantes.add("Debora");
+        participantes.add("Eglaize");
+        participantes.add("Jussara");
+        participantes.add("Nete");
         participantes.add("Neusa");
-        participantes.add("Geovane");
-        participantes.add("Giovana");
+        participantes.add("Branca");
         participantesASeremSorteados = new ArrayList<>(participantes);
 
         List<String> eugeniaNaoPodeTirar = Arrays.asList("Stael", "Antonio", "Vera", "Rui");
