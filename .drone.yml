@@ -1,34 +1,13 @@
----
-fbm: &filter_branch_develop
-  when:
-    branch:
-      - develop
-      - master
-    event:
-      exclude:
-        - pull_request
-fbm: &filter_branch_master
-  when:
-    branch:
-      - master
-    event:
-      exclude:
-        - pull_request
-
 kind: pipeline
-name: default
-
-concurrency:
-  limit: 1
-
-platform:
-  os: linux
-  arch: amd64
+name: pipeline-example-maven
 
 steps:
   - name: build-maven
-    user: root
-    pull: always
-    image: maven
-    command:
-      - mvn install
+    image: maven:3-jdk-7
+    volumes:
+      - name: cache
+        path: /root/.m2
+    commands:
+      - pwd
+      - ls -l
+      - mvn clean install
