@@ -33,20 +33,3 @@ steps:
     image: maven:3.3.3-jdk-8-onbuild
     command:
       - mvn clean install
-
-services:
-  - name: docker
-    image: docker:dind
-    command:
-      - --max-concurrent-downloads
-      - 6
-    environment:
-      DOCKER_TLS_CERTDIR: ""
-    privileged: true
-    volumes:
-      - name: dockersock
-        path: /var/run
-
-volumes:
-  - name: dockersock
-    temp: {}
