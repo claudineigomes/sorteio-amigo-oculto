@@ -26,10 +26,17 @@ platform:
   arch: amd64
 
 
-steps:
-  - name: build-maven
-    user: root
-    pull: always
-    image: maven
-    command:
-      - mvn clean install
+build:
+  image: 3.3.9-jdk-7
+  pull: true
+  commands:
+    - mvn clean
+    - mvn install
+
+#steps:
+#  - name: build-maven
+#    user: root
+#    pull: always
+#    image: maven
+#    command:
+#      - mvn clean install
