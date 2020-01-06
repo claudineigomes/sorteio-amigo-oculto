@@ -8,6 +8,4 @@ steps:
       - name: cache
         path: /root/.m2
     commands:
-      - pwd
-      - ls -l
       - mvn clean install
