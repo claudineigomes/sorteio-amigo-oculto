@@ -30,6 +30,6 @@ steps:
   - name: build-maven
     user: root
     pull: always
-    image: maven:3.3.3-jdk-8-onbuild
+    image: maven
     command:
       - mvn clean install
