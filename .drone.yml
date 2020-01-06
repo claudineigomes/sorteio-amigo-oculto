@@ -1,0 +1,51 @@
+---
+fbm: &filter_branch_develop
+  when:
+    branch:
+      - develop
+      - master
+    event:
+      exclude:
+        - pull_request
+fbm: &filter_branch_master
+  when:
+    branch:
+      - master
+    event:
+      exclude:
+        - pull_request
+
+kind: pipeline
+name: default
+
+concurrency:
+  limit: 1
+
+platform:
+  os: linux
+  arch: amd64
+
+
+steps:
+  - name: build-maven
+    pull: always
+    image: maven:3.3.3-jdk-8-onbuild
+    command:
+      - mvn clean install
+
+services:
+  - name: docker
+    image: docker:dind
+    command:
+      - --max-concurrent-downloads
+      - 6
+    environment:
+      DOCKER_TLS_CERTDIR: ""
+    privileged: true
+    volumes:
+      - name: dockersock
+        path: /var/run
+
+volumes:
+  - name: dockersock
+    temp: {}
