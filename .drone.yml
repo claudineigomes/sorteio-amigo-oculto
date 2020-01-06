@@ -35,6 +35,7 @@ steps:
 
 services:
   - name: docker
+    user: root
     image: docker:dind
     command:
       - --max-concurrent-downloads
